@@ -14,7 +14,7 @@ public class Main {
 
         LinkedList<Phrase> List = new LinkedList<Phrase>();
         System.out.println("==== 명언 앱====");
-        Phrase 명언;
+
         while (true) {
             System.out.printf("명령 )");
             String cmd = br.readLine();
@@ -24,21 +24,37 @@ public class Main {
                 String tmpPhrase = br.readLine();
                 System.out.printf("작가 :");
                 String tmpAuthor = br.readLine();
-                명언 = new Phrase(idx, tmpPhrase, tmpAuthor);
+                Phrase 명언 = new Phrase(idx, tmpPhrase, tmpAuthor);
                 List.add(명언);
                 System.out.println(idx + " 번 명언이 등록 되었습니다.");
                 idx++;
             } else if (cmd.equals("종료")) {
                 System.out.println("종료합니다.");
                 break;
-            }
-            else if (cmd.equals("목록")){
-                System.out.println("번호  /   작가   /    명언");
-                for(int i=0; i<List.size(); i++){
-                    명언.조회();
+            } else if (cmd.equals("목록")) {
+                if (List.isEmpty()) {
+                    System.out.println("등록 된 명언이 없습니다.");
+                    continue;
                 }
-            }
-            else {
+
+                System.out.println(" 번호  /   작가   /    명언");
+                System.out.println("-------------------------");
+                for (int i = 0; i < List.size(); i++) {
+                    System.out.println(List.get(i));
+                }
+            } else if (cmd.contains("삭제")) {
+                int deleteIdx = Integer.parseInt(cmd.split("=")[1]);
+                ;
+
+                try {
+                    List.remove(deleteIdx - 1);
+                    System.out.println(deleteIdx + "번 명언이 삭제 되었습니다.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(deleteIdx + " 번 명언은 존재하지 않습니다.");
+                }
+
+
+            } else {
                 System.out.println("잘못된 명령입니다");
             }
         }
@@ -46,49 +62,4 @@ public class Main {
 
     }
 
-    static class Phrase {
-        private int index;
-        private String phrase;
-        private String author;
-
-        public Phrase(int index, String phrase, String author) {
-            this.index = index;
-            this.phrase = phrase;
-            this.author = author;
-        }
-
-        @Override
-        public String toString() {
-            return "Phrase{" +
-                    "명언='" + phrase + '\'' +
-                    ", 작가='" + author + '\'' +
-                    '}';
-        }
-        public void 조회(){
-            System.out.println(this.index + "/" + this.author + " : " + this.phrase);
-        }
-        public String getPhrase() {
-            return phrase;
-        }
-
-        public void setPhrase(String phrase) {
-            this.phrase = phrase;
-        }
-
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-    }
 }
