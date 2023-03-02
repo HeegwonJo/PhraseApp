@@ -1,6 +1,8 @@
-package org.example;
+package org.example.phrase.entity;
 
-class Phrase {
+import java.io.Serializable;
+
+public class Phrase implements Serializable {
     private int id;
     private String content;
     private String author;
