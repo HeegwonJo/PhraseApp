@@ -52,9 +52,24 @@ public class Main {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(deleteIdx + " 번 명언은 존재하지 않습니다.");
                 }
+            }
+            else if(cmd.contains("수정")){
+                int updateIdx=Integer.parseInt(cmd.split("=")[1])-1;
+                String originContent=List.get(updateIdx).getContent();
+                String originAuthor=List.get(updateIdx).getAuthor();
+                System.out.println("명언 (기존) : " + originContent);
+                System.out.printf("명언 : ");
+                String newContent=br.readLine();
+                List.get(updateIdx).setContent(newContent);
+                System.out.println("작가 (기존) :" + originAuthor);
+                System.out.printf("작가 : ");
+                String newAuthor=br.readLine();
+                List.get(updateIdx).setAuthor(newAuthor);
+                System.out.println("수정 되었습니다");
+            }
 
 
-            } else {
+            else {
                 System.out.println("잘못된 명령입니다");
             }
         }
