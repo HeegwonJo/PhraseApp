@@ -1,59 +1,81 @@
 package org.example.phrase.controller;
 
+import org.example.Path;
 import org.example.phrase.entity.Phrase;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.List;
 
 import static java.nio.file.Files.readAllLines;
+import static org.example.App.phraseList;
 
-public class FileController{
-    static List<String> lines;
+public class FileController {
 
-    static {
-        try {
-            lines = readAllLines(Paths.get("/Users/heegwonjo/Desktop/멋사/phraseApp/phrase.txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    int lastCnt;
+
+    public FileController() throws IOException {
+        lastCnt = 0;
+        this.syncFromText();
     }
-
-    static File file = new File("/Users/heegwonjo/Desktop/멋사/phraseApp/phrase.txt");
 
     public static void writeFile(Phrase newPhrase) throws IOException {
         try {
-           FileOutputStream fos = new FileOutputStream(file);
+            FileOutputStream fos = new FileOutputStream(Path.textPath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(newPhrase);
             fos.close();
             oos.close();
 
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
     public static void readAll() throws IOException {
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            lines = (List<String>) ois.readObject();
-        }catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        for (String line : lines) {
+
+        for (Phrase line : phraseList) {
             System.out.println(line);
         }
     }
 
     public static int readFileCount() throws IOException {
-        return lines.size();
+        return phraseList.size();
     }
 
     static public void readOne(int idx) throws IOException {
-        System.out.println(lines.get(idx));
+        System.out.println(phraseList.get(idx));
+    }
+
+    public void syncFromText() throws IOException {
+        File file = new File(Path.textPath);
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(Path.textPath));
+        }
+
+            FileInputStream fis = new FileInputStream(Path.textPath);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    phraseList.add((Phrase) ois.readObject());
+                } catch (EOFException e) {
+                    break;
+                } catch (IOException | ClassNotFoundException e) {
+                    break;
+                }
+            }
+        lastCnt = phraseList.size();
+    }
+    public void syncToText() throws IOException {
+        FileOutputStream fos = new FileOutputStream(Path.textPath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        for(Phrase line : phraseList) {
+            oos.writeObject(line);
+        }
+        fos.close();
+        oos.close();
     }
 }

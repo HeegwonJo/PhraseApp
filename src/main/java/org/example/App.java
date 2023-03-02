@@ -19,7 +19,7 @@ public class App {
         PhraseController phraseController = new PhraseController();
         SystemController systemController = new SystemController();
         System.out.println("==== 명언 앱====");
-
+        fc.syncFromText();
         while (true) {
             System.out.print("명령) ");
             // trim() : 혹시 있을지 모를 좌우공백제거된 버전으로 주세요.
@@ -35,6 +35,12 @@ public class App {
                     break;
                 case "목록":
                     phraseController.list();
+                    break;
+                case "수정":
+                    phraseController.update(rq);
+                    break;
+                case "빌드":
+                    phraseController.build();
                     break;
                 case "삭제":
                     phraseController.delete(rq);

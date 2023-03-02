@@ -6,8 +6,9 @@ public class Phrase implements Serializable {
     private int id;
     private String content;
     private String author;
-
+    static final long serialVersionUID = 1L;
     public Phrase(int index, String content, String author) {
+
         this.id = index;
         this.content = content;
         this.author = author;
