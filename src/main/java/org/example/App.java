@@ -42,12 +42,9 @@ public class App {
                 System.out.println(" 번호  /   작가   /    명언");
                 System.out.println("-------------------------");
                 ReadFile.readAll();
-                for (int i=0; i<ReadFile.readFileCount(); i++) {
-                    List.add(ReadFile.readOne(i));
-                }
+
             } else if (cmd.contains("삭제")) {
                 int deleteIdx = Integer.parseInt(cmd.split("=")[1]);
-                ;
 
                 try {
                     List.remove(deleteIdx - 1);
