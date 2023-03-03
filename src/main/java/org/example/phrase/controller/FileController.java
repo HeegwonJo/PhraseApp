@@ -69,13 +69,15 @@ public class FileController {
             }
         lastCnt = phraseList.size();
     }
-    public void syncToText() throws IOException {
-        FileOutputStream fos = new FileOutputStream(Path.textPath);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        for(Phrase line : phraseList) {
-            oos.writeObject(line);
+    public void deleteAll() throws IOException {
+        File file = new File(Path.textPath);
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(Path.textPath));
         }
+        FileOutputStream fos = new FileOutputStream(Path.textPath);
+        fos.write("".getBytes());
         fos.close();
-        oos.close();
+        System.out.println(phraseList);
     }
+
 }

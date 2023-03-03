@@ -26,7 +26,6 @@ public class App {
             String command = Container.getReader().readLine().trim();
             Rq rq = new Rq(command);
 
-<<<<<<< HEAD
             switch (rq.getActionCode()) {
                 case "종료":
                     systemController.exit();
@@ -46,28 +45,10 @@ public class App {
                 case "삭제":
                     phraseController.delete(rq);
                     break;
-}
-=======
-            switch (rq.getActionCode()) {
-                case "종료":
-                    systemController.exit();
-                    return;
-                case "등록":
-                    phraseController.create();
+                case "전체 삭제":
+                    phraseController.deleteAll();
                     break;
-                case "목록":
-                    phraseController.list();
-                    break;
-                case "수정":
-                    phraseController.update(rq);
-                    break;
-                case "빌드":
-                    phraseController.build();
-                    break;
-                case "삭제":
-                    phraseController.delete(rq);
-                    break;
->>>>>>> FileIOBug
+
             }
 
         }

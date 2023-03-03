@@ -57,7 +57,7 @@ public class PhraseController {
         } catch (IndexOutOfBoundsException e) {
             System.out.println(deleteIdx + " 번 명언은 존재하지 않습니다.");
         }
-        fc.syncToText();
+
     }
     public void update(Rq rq) throws IOException {
         int updateIdx = rq.getIntParam("id", -1);
@@ -72,7 +72,7 @@ public class PhraseController {
         String newAuthor=br.readLine();
         phraseList.get(updateIdx-1).setAuthor(newAuthor);
         System.out.println(updateIdx+ "번 명언이 수정 되었습니다");
-        fc.syncToText();
+
     }
     public void build() throws IOException {
         JSONArray outer = new JSONArray();
@@ -91,5 +91,10 @@ public class PhraseController {
         fileWriter.close();
 
         System.out.printf("%s 파일의 내용이 갱신되었습니다.\n", fileName);
+    }
+
+    public void deleteAll(){
+        phraseList.clear();
+        fc.lastCnt=0;
     }
 }
